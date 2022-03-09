@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.rds.AmazonRDS;
 import com.amazonaws.services.rds.model.DBInstance;
 import com.amazonaws.services.rds.model.DescribeDBInstancesResult;
-import com.amazonaws.services.rds.model.StartDBInstanceRequest;
+import com.amazonaws.services.rds.model.StopDBInstanceRequest;
 import com.amazonaws.util.CollectionUtils;
 import com.credential.CredentialUtil;
 import java.util.List;
@@ -32,8 +32,8 @@ public class RDSStop implements RequestHandler<Object, String> {
         }
 
         for (String instanceIdentifier : instanceIdentifiers) {
-            StartDBInstanceRequest startDBInstanceRequest = new StartDBInstanceRequest().withDBInstanceIdentifier(instanceIdentifier);
-            amazonRDSClient.startDBInstance(startDBInstanceRequest);
+            StopDBInstanceRequest stopDBInstanceRequest = new StopDBInstanceRequest().withDBInstanceIdentifier(instanceIdentifier);
+            amazonRDSClient.stopDBInstance(stopDBInstanceRequest);
             logger.log("instanceIdentifier = " + instanceIdentifier + " The DBInstance stopped normally.");
         }
         return null;

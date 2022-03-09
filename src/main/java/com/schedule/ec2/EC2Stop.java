@@ -4,7 +4,7 @@ import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.StartInstancesRequest;
+import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -31,8 +31,8 @@ public class EC2Stop implements RequestHandler<Object, String> {
             logger.log("There are no started instances.");
             return null;
         }
-        StartInstancesRequest startInstancesRequest = new StartInstancesRequest().withInstanceIds(instanceIds);
-        amazonEC2Client.startInstances(startInstancesRequest);
+        StopInstancesRequest stopInstancesRequest = new StopInstancesRequest().withInstanceIds(instanceIds);
+        amazonEC2Client.stopInstances(stopInstancesRequest);
         logger.log("instanceIds = " + instanceIds + " The instance stopped normally.");
         return null;
     }
