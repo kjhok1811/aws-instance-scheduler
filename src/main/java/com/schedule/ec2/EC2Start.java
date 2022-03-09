@@ -33,7 +33,7 @@ public class EC2Start implements RequestHandler<Object, String> {
         }
         StartInstancesRequest startInstancesRequest = new StartInstancesRequest().withInstanceIds(instanceIds);
         amazonEC2Client.startInstances(startInstancesRequest);
-        logger.log("instanceIds = " + instanceIds + " The instance started normally.");
+        logger.log("instanceIds : " + instanceIds + " The instance started normally.");
         return null;
     }
 

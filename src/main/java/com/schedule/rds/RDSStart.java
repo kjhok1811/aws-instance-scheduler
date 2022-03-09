@@ -34,7 +34,7 @@ public class RDSStart implements RequestHandler<Object, String> {
         for (String instanceIdentifier : instanceIdentifiers) {
             StartDBInstanceRequest startDBInstanceRequest = new StartDBInstanceRequest().withDBInstanceIdentifier(instanceIdentifier);
             amazonRDSClient.startDBInstance(startDBInstanceRequest);
-            logger.log("instanceIdentifier = " + instanceIdentifier + " The DBInstance available normally.");
+            logger.log("instanceIdentifier : " + instanceIdentifier + " The DBInstance available normally.");
         }
         return null;
     }

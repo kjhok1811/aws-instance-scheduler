@@ -1,10 +1,7 @@
 package com.schedule.ec2;
 
 import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
-import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.StopInstancesRequest;
+import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -31,9 +28,16 @@ public class EC2Stop implements RequestHandler<Object, String> {
             logger.log("There are no started instances.");
             return null;
         }
-        StopInstancesRequest stopInstancesRequest = new StopInstancesRequest().withInstanceIds(instanceIds);
-        amazonEC2Client.stopInstances(stopInstancesRequest);
-        logger.log("instanceIds = " + instanceIds + " The instance stopped normally.");
+
+        for (String instanceId : instanceIds) {
+            try {
+                StopInstancesRequest stopInstancesRequest = new StopInstancesRequest().withInstanceIds(instanceId);
+                amazonEC2Client.stopInstances(stopInstancesRequest);
+                logger.log("instanceId : " + instanceId + " The instance stopped normally.");
+            } catch (AmazonEC2Exception e) {
+                logger.log("instanceId '" + instanceId + "' cannot be stopped because it is spot applied.");
+            }
+        }
         return null;
     }
 

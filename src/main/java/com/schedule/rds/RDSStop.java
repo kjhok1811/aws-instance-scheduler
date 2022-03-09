@@ -34,7 +34,7 @@ public class RDSStop implements RequestHandler<Object, String> {
         for (String instanceIdentifier : instanceIdentifiers) {
             StopDBInstanceRequest stopDBInstanceRequest = new StopDBInstanceRequest().withDBInstanceIdentifier(instanceIdentifier);
             amazonRDSClient.stopDBInstance(stopDBInstanceRequest);
-            logger.log("instanceIdentifier = " + instanceIdentifier + " The DBInstance stopped normally.");
+            logger.log("instanceIdentifier : " + instanceIdentifier + " The DBInstance stopped normally.");
         }
         return null;
     }
